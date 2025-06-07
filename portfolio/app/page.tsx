@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Navbar from "@/components/Navbar"
 import Hero from "@/components/sections/Hero"
 import About from "@/components/sections/About"
@@ -10,8 +10,12 @@ import Footer from "@/components/sections/Footer"
 import InteractiveBackground from "@/components/InteractiveBackground"
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
