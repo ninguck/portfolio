@@ -55,7 +55,7 @@ export default function About() {
                             emoji: "🎯",
                             title: "My Philosophy",
                             text:
-                            "I believe in writing clean, maintainable code and creating user experiences that are both beautiful and functional. Let's build something amazing together!",
+                            "I don't want to write code that I don’t believe in. I want to work on problems I care about, contribute to solutions that inspire, and collaborate with people who value purpose over process. I bring energy, discipline, and care to every project — because I’m not in this to clock hours, I’m in this to make a mark.",
                         },
                     ].map((item, index) => (
                     <Card

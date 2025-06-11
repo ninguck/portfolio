@@ -27,11 +27,11 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="font-medium">Email</p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300">nicholas.nguyen@email.com</p>
+                                        <p className="text-sm text-gray-600 dark:text-gray-300">nicholasvannguyen@yahoo.com.au</p>
                                     </div>
                                 </div>
                                 <Link
-                                    href="https://linkedin.com"
+                                    href="https://www.linkedin.com/in/nicholas-nguyen-456928322/"
                                     className="flex items-center gap-4 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group"
                                 >
                                     <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -43,7 +43,7 @@ export default function Contact() {
                                     </div>
                                 </Link>
                                 <Link
-                                    href="https://github.com"
+                                    href="https://github.com/ninguck"
                                     className="flex items-center gap-4 p-4 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
                                 >
                                     <div className="w-12 h-12 rounded-full bg-gray-800 dark:bg-gray-600 flex items-center justify-center group-hover:scale-110 transition-transform">
