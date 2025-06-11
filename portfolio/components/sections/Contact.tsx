@@ -6,8 +6,48 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function Contact() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        try {
+            const response = await fetch('/api/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            setStatus('error');
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
     return (
         <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
@@ -61,32 +101,68 @@ export default function Contact() {
                     <div className="lg:col-span-3 flex flex-col h-full">
                         <Card className="p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow h-full flex flex-col">
                             <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
-                            <form className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium mb-2">Name</label>
-                                        <Input placeholder="Your Name" className="h-12" />
+                                        <Input 
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            placeholder="Your Name" 
+                                            className="h-12" 
+                                            required
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-2">Email</label>
-                                        <Input type="email" placeholder="Your Email" className="h-12" />
+                                        <Input 
+                                            name="email"
+                                            type="email" 
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="Your Email" 
+                                            className="h-12" 
+                                            required
+                                        />
                                     </div>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-2">Subject</label>
-                                    <Input placeholder="What's this about?" className="h-12" />
+                                    <Input 
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleChange}
+                                        placeholder="What's this about?" 
+                                        className="h-12" 
+                                        required
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-2">Message</label>
-                                    <Textarea placeholder="Tell me about your project or just say hello!" rows={6} />
+                                    <Textarea 
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        placeholder="Tell me about your project or just say hello!" 
+                                        rows={6} 
+                                        required
+                                    />
                                 </div>
                                 <Button
                                     type="submit"
                                     size="lg"
                                     className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                    disabled={status === 'loading'}
                                 >
-                                    Send Message
+                                    {status === 'loading' ? 'Sending...' : 'Send Message'}
                                 </Button>
+                                {status === 'success' && (
+                                    <p className="text-green-600 text-center">Message sent successfully!</p>
+                                )}
+                                {status === 'error' && (
+                                    <p className="text-red-600 text-center">Failed to send message. Please try again.</p>
+                                )}
                             </form>
                         </Card>
                     </div>
