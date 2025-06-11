@@ -9,7 +9,7 @@ import Contact from "@/components/sections/Contact"
 import Footer from "@/components/sections/Footer"
 import InteractiveBackground from "@/components/InteractiveBackground"
 
-export default function Home() {
+export default function HomePage() {
   const [isDark, setIsDark] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
 
